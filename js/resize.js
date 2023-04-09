@@ -23,18 +23,20 @@ document.addEventListener('DOMContentLoaded', function () {
     };
   }
 
-  function handleMouseMove(event) {
+  function handleColumnMouseMove(event) {
     if (!isResizing || !activeColumns) return;
-
+  
     const mousePosition = getMousePosition(event);
     const newWidth = mousePosition.x - activeColumns.leftColumn.getBoundingClientRect().left;
     const totalWidth = activeColumns.leftColumn.offsetWidth + activeColumns.rightColumn.offsetWidth;
-
+  
     activeColumns.leftColumn.style.width = newWidth + 'px';
     activeColumns.rightColumn.style.width = (totalWidth - newWidth) + 'px';
-
+  }
+  
+  function handleGridMouseMove(event) {
     if (!GridResizing || !activeGridContainers) return;
-
+  
     if (activeGridContainers.mode === 'top') {
       handleTopMouseMove(event);
     } else {
@@ -146,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   document.addEventListener('mousedown', handleMouseDown);
-  document.addEventListener('mousemove', handleMouseMove);
+  document.addEventListener('mousemove', handleColumnMouseMove);
+  document.addEventListener('mousemove', handleGridMouseMove);
   document.addEventListener('mouseup', handleMouseUp);
 });
