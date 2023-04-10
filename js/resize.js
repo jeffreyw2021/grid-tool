@@ -23,6 +23,11 @@ document.addEventListener('DOMContentLoaded', function () {
     };
   }
 
+  function handleMouseMove(event) {
+    handleColumnMouseMove(event);
+    handleGridMouseMove(event);
+  }
+  
   function handleColumnMouseMove(event) {
     if (!isResizing || !activeColumns) return;
   
@@ -148,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   document.addEventListener('mousedown', handleMouseDown);
-  document.addEventListener('mousemove', handleColumnMouseMove);
-  document.addEventListener('mousemove', handleGridMouseMove);
+  document.addEventListener('mousemove', handleMouseMove);
   document.addEventListener('mouseup', handleMouseUp);
 });

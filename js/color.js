@@ -30,11 +30,11 @@ var blackWhite = [
   '#e6e6e6', //dark white
   '#e6e6e6', //dark white
   '#e6e6e6', //dark white
-
-  '#1b1c1e', //light gray
-  '#1b1c1e', //light gray
-  '#1b1c1e', //light gray
-  '#1b1c1e', //light gray
+  '#e6e6e6', //dark white
+  '#e6e6e6', //dark white
+  '#e6e6e6', //dark white
+  '#e6e6e6', //dark white
+  
   '#1b1c1e', //light gray
   '#1b1c1e', //light gray
   '#1b1c1e', //light gray
