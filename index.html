@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOC</title>
     <link rel="shortcut icon" href="./assets/stack-cube.png" />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/gridButton.css">
+    <link rel="stylesheet" href="css/weather.css">
+    <link rel="stylesheet" href="css/flip-clock.css">
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -14,306 +18,88 @@
     <script src="https://kit.fontawesome.com/c54adec46d.js" crossorigin="anonymous"></script>
 </head>
 
-<header>
-    
-</header>
+<body style="background-color: #404040;">
 
-<body style="background-color: #f6f6f6;">
     <main style="height: 100vh; width: 100vw; overflow:hidden;">
         <div id="moc-body">
-            <div class="column default-column" id="column-1">
-                <div class="top-dragdetector"></div>
-                <div class="grid-container default-grid-container grid-container-1">
-                    <div class="grid-buttons">
-                        <div class="grid-btn right-btn"></div>
-                        <div class="grid-btn func-btn close-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="grid-btn func-btn shrink-btn">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus" style="display:none"></i>
-                        </div>
-                        <div class="grid-btn func-btn expand-btn">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress" style="display:none"></i>
-                        </div>
+            <!-- column 1 -->
+            <div class="column" id="column-1">
+                <div class="grid-container">
+                    <div class="grid">
+                        <iframe style="border-radius: 10px;" width="100%" height="100%"
+                            src="https://www.youtube.com/embed/jfKfPfyJRdk" title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen autoplay></iframe>
                     </div>
-                    <div class="grid grid-1"></div>
                 </div>
-                <div class="grid-container default-grid-container grid-container-2">
-                    <div class="grid-buttons">
-                        <div class="grid-btn right-btn"></div>
-                        <div class="grid-btn func-btn close-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="grid-btn func-btn shrink-btn">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus" style="display:none"></i>
-                        </div>
-                        <div class="grid-btn func-btn expand-btn">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress" style="display:none"></i>
-                        </div>
+                <div class="grid-container">
+                    <div class="grid">
+                        <div id="weather-widget"></div>
                     </div>
-                    <div class="grid grid-2"></div>
                 </div>
-                <div class="grid-container default-grid-container grid-container-3">
-                    <div class="grid-buttons">
-                        <div class="grid-btn right-btn"></div>
-                        <div class="grid-btn func-btn close-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="grid-btn func-btn shrink-btn">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus" style="display:none"></i>
-                        </div>
-                        <div class="grid-btn func-btn expand-btn">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress" style="display:none"></i>
-                        </div>
-                    </div>
-                    <div class="grid grid-3"></div>
-                </div>
-                <div class="grid-container extra-grid-container grid-container-4">
-                    <div class="grid-buttons">
-                        <div class="grid-btn right-btn"></div>
-                        <div class="grid-btn func-btn close-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="grid-btn func-btn shrink-btn">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus" style="display:none"></i>
-                        </div>
-                        <div class="grid-btn func-btn expand-btn">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress" style="display:none"></i>
-                        </div>
-                    </div>
-                    <div class="grid grid-4"></div>
-                </div>
-                <div class="bottom-dragdetector"></div>
             </div>
-            <div class="column default-column" id="column-2">
-                <div class="top-dragdetector"></div>
-                <div class="grid-container default-grid-container grid-container-1">
-                    <div class="grid-buttons">
-                        <div class="grid-btn right-btn"></div>
-                        <div class="grid-btn func-btn close-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="grid-btn func-btn shrink-btn">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus" style="display:none"></i>
-                        </div>
-                        <div class="grid-btn func-btn expand-btn">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress" style="display:none"></i>
-                        </div>
-                    </div>
-                    <div class="grid grid-1"></div>
-                </div>
-                <div class="grid-container default-grid-container grid-container-2">
-                    <div class="grid-buttons">
-                        <div class="grid-btn right-btn"></div>
-                        <div class="grid-btn func-btn close-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="grid-btn func-btn shrink-btn">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus" style="display:none"></i>
-                        </div>
-                        <div class="grid-btn func-btn expand-btn">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress" style="display:none"></i>
-                        </div>
-                    </div>
-                    <div class="grid grid-2"></div>
-                </div>
-                <div class="grid-container default-grid-container grid-container-3">
-                    <div class="grid-buttons">
-                        <div class="grid-btn right-btn"></div>
-                        <div class="grid-btn func-btn close-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="grid-btn func-btn shrink-btn">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus" style="display:none"></i>
-                        </div>
-                        <div class="grid-btn func-btn expand-btn">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress" style="display:none"></i>
-                        </div>
-                    </div>
-                    <div class="grid grid-3"></div>
-                </div>
-                <div class="grid-container extra-grid-container grid-container-4">
-                    <div class="grid-buttons">
-                        <div class="grid-btn right-btn"></div>
-                        <div class="grid-btn func-btn close-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="grid-btn func-btn shrink-btn">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus" style="display:none"></i>
-                        </div>
-                        <div class="grid-btn func-btn expand-btn">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress" style="display:none"></i>
+            <!-- column 2 -->
+            <div class="column" id="column-2">
+                <div class="grid-container">
+                    <div class="grid">
+                        <div id="app">
+                            <div class="flip-clock-container">
+                                <div id="divider"></div>
+                                <div class="flip-clock flip-clock-h">
+                                    <div class="digit digit-left">
+                                        <div id="ampm-container">
+                                            <span id="ampm">AM</span>
+                                        </div>
+                                        <!-- ::before -->
+                                        <div class="card">
+                                            <div class="card-face card-face-front"></div>
+                                            <div class="card-face card-face-back"></div>
+                                        </div>
+                                        <!-- ::after -->
+                                    </div>
+                                    <div class="digit digit-right">
+                                        <!-- ::before -->
+                                        <div class="card">
+                                            <div class="card-face card-face-front"></div>
+                                            <div class="card-face card-face-back"></div>
+                                        </div>
+                                        <!-- ::after -->
+                                    </div>
+                                </div>
+
+                                <div class="flip-clock flip-clock-m">
+                                    <div class="digit digit-left">
+                                        <!-- ::before -->
+                                        <div class="card">
+                                            <div class="card-face card-face-front"></div>
+                                            <div class="card-face card-face-back"></div>
+                                        </div>
+                                        <!-- ::after -->
+                                    </div>
+                                    <div class="digit digit-right">
+                                        <div id="seconds-container">
+                                            <span id="seconds">00</span>
+                                        </div>
+                                        <!-- ::before -->
+                                        <div class="card">
+                                            <div class="card-face card-face-front"></div>
+                                            <div class="card-face card-face-back"></div>
+                                        </div>
+                                        <!-- ::after -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="grid grid-4"></div>
                 </div>
-                <div class="bottom-dragdetector"></div>
-            </div>
-            <div class="column default-column" id="column-3">
-                <div class="top-dragdetector"></div>
-                <div class="grid-container default-grid-container grid-container-1">
-                    <div class="grid-buttons">
-                        <div class="grid-btn right-btn"></div>
-                        <div class="grid-btn func-btn close-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="grid-btn func-btn shrink-btn">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus" style="display:none"></i>
-                        </div>
-                        <div class="grid-btn func-btn expand-btn">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress" style="display:none"></i>
-                        </div>
-                    </div>
-                    <div class="grid grid-1"></div>
-                </div>
-                <div class="grid-container default-grid-container grid-container-2">
-                    <div class="grid-buttons">
-                        <div class="grid-btn right-btn"></div>
-                        <div class="grid-btn func-btn close-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="grid-btn func-btn shrink-btn">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus" style="display:none"></i>
-                        </div>
-                        <div class="grid-btn func-btn expand-btn">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress" style="display:none"></i>
-                        </div>
-                    </div>
-                    <div class="grid grid-2"></div>
-                </div>
-                <div class="grid-container default-grid-container grid-container-3">
-                    <div class="grid-buttons">
-                        <div class="grid-btn right-btn"></div>
-                        <div class="grid-btn func-btn close-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="grid-btn func-btn shrink-btn">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus" style="display:none"></i>
-                        </div>
-                        <div class="grid-btn func-btn expand-btn">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress" style="display:none"></i>
-                        </div>
-                    </div>
-                    <div class="grid grid-3"></div>
-                </div>
-                <div class="grid-container extra-grid-container grid-container-4">
-                    <div class="grid-buttons">
-                        <div class="grid-btn right-btn"></div>
-                        <div class="grid-btn func-btn close-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="grid-btn func-btn shrink-btn">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus" style="display:none"></i>
-                        </div>
-                        <div class="grid-btn func-btn expand-btn">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress" style="display:none"></i>
-                        </div>
-                    </div>
-                    <div class="grid grid-4"></div>
-                </div>
-                <div class="bottom-dragdetector"></div>
-            </div>
-            <div class="column extra-column" id="column-4">
-                <div class="top-dragdetector"></div>
-                <div class="grid-container default-grid-container grid-container-1">
-                    <div class="grid-buttons">
-                        <div class="grid-btn right-btn"></div>
-                        <div class="grid-btn func-btn close-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="grid-btn func-btn shrink-btn">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus" style="display:none"></i>
-                        </div>
-                        <div class="grid-btn func-btn expand-btn">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress" style="display:none"></i>
-                        </div>
-                    </div>
-                    <div class="grid grid-1"></div>
-                </div>
-                <div class="grid-container default-grid-container grid-container-2">
-                    <div class="grid-buttons">
-                        <div class="grid-btn right-btn"></div>
-                        <div class="grid-btn func-btn close-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="grid-btn func-btn shrink-btn">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus" style="display:none"></i>
-                        </div>
-                        <div class="grid-btn func-btn expand-btn">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress" style="display:none"></i>
-                        </div>
-                    </div>
-                    <div class="grid grid-2"></div>
-                </div>
-                <div class="grid-container default-grid-container grid-container-3">
-                    <div class="grid-buttons">
-                        <div class="grid-btn right-btn"></div>
-                        <div class="grid-btn func-btn close-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="grid-btn func-btn shrink-btn">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus" style="display:none"></i>
-                        </div>
-                        <div class="grid-btn func-btn expand-btn">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress" style="display:none"></i>
-                        </div>
-                    </div>
-                    <div class="grid grid-3"></div>
-                </div>
-                <div class="grid-container extra-grid-container grid-container-4">
-                    <div class="grid-buttons">
-                        <div class="grid-btn right-btn"></div>
-                        <div class="grid-btn func-btn close-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="grid-btn func-btn shrink-btn">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus" style="display:none"></i>
-                        </div>
-                        <div class="grid-btn func-btn expand-btn">
-                            <i class="fa-solid fa-expand"></i>
-                            <i class="fa-solid fa-compress" style="display:none"></i>
-                        </div>
-                    </div>
-                    <div class="grid grid-4"></div>
-                </div>
-                <div class="bottom-dragdetector"></div>
             </div>
         </div>
     </main>
 </body>
 
-<script src="./js/color.js"></script>
 <script src="./js/resize.js"></script>
-<script src="./js/gridButtons.js"></script>
+<script src="./js/gridButton.js"></script>
+<script src="./js/flipClock.js"></script>
+<script src="./js/weather.js"></script>
+
 </html>

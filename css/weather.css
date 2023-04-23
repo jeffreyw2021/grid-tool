@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Lexend+Deca:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* 
+font-family: 'Carlito', sans-serif;
+font-family: 'Lexend Deca', sans-serif;
+font-family: 'Outfit', sans-serif;
+font-family: 'Rubik', sans-serif; 
+*/
+
+/* ========== TODAY'S WEATHER ========== */
+
+#weather-widget {
+    width: 100%;
+    height: 100%;
+    padding: 40px 12%;
+    color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'Rubik', sans-serif; 
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    overflow: auto;
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+    scrollbar-width: none; /* For Firefox */
+}
+#weather-widget::-webkit-scrollbar {
+    display: none;
+}
+
+#weather-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+#tempWeather{
+    width: 100%;
+    padding: 0 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+#weather-details{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+#temps,
+#weather {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#exact-temp {
+    font-size: 100px;
+    font-weight: 700;
+    margin: 0;
+}
+
+#feel-temp {
+    font-size: 30px;
+    font-weight: 400;
+    margin: 0 !important;
+}
+
+#weather-widget h2 {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.weather-icon {
+    font-size: 100px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 6%;
+}
+
+#weather-desc {
+    font-size: 30px;
+    font-weight: 400;
+    margin: 0 !important;
+}
+
+/* #sun-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#sun-bar {
+    width: 100%;
+    height: 5px;
+    background: #ECEFF1;
+    position: relative;
+    border-radius: 5px;
+}
+
+#sun-bar::before {
+    content: '';
+    position: absolute;
+    height: 5px;
+    background: #FFA726;
+    transition: width 1s;
+    border-radius: 5px;
+}
+
+#sunset-time {
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    color: #ECEFF1;
+    margin-left: 20px;
+} */
+
+/* ========== FORECAST ========== */
+
+#weather-forecast {
+    align-self: center;
+    width: 110%;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 400;
+    margin-top: 20px;
+    padding-bottom: 40px;
+}
+#weather-forecast > *{
+    margin-right: 10px;
+}
+#weather-forecast :last-child{
+    margin-right: 0;
+}
+
+.forecast {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 120px;
+}
+
+.forecast .forcast-day {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.forecast .forcast-temp {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.forecast .forcast-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.forecast .forcast-weather {
+    font-size: 14px;
+    margin: 0;
+}
+
+/* ========== SUN/MOON ========== */
+
+.sun-moon-list {
+    align-self: center;
+    width: 102.5%;
+    min-height: 66px;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-y:hidden;
+    overflow-x: auto;
+    list-style-type: none;
+    padding: 0;
+    margin-top: 40px;
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+    scrollbar-width: none; /* For Firefox */
+}
+.sun-moon-list::-webkit-scrollbar {
+    display: none;
+}
+
+.sun-moon-item {
+    flex-shrink: 0;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.sun-moon-item i {
+    font-size: 20px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+

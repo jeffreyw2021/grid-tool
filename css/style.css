@@ -1,120 +1,51 @@
-#moc-body{
-    height: 100%; 
+#moc-body {
+    height: 100%;
     width: 100%;
-    padding: 3px;
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+    padding: 3px;
 }
-#column-4{
-    display: none;
-}
-.column{
-    position: relative;
-    max-height: 100%;
+
+.column {
+    width: 50%;
+    min-width: 56px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
-.default-column{
-    width: calc(100%/3);
-}
-.grid-container{
-    position: relative;
-    width:100%;
-    max-height: 100%;
-    display: flex;
-    justify-content: center;
+
+.grid-container {
+    width: 100%;
+    height: 100%;
+    min-height: 40px;
     padding: 3px;
+    position: relative;
 }
-.grid-buttons{
-    position: absolute;
-    padding: 8px 0px 0px 10px;
-    top: 0;
-    left: 0;
-    z-index: 1;
+
+.grid {
+    width: 100%;
+    height: 100%;
+    background-color: #1b1c1e;
+    border-radius: 10px;
     display: flex;
-}
-.grid-btn{
-    font-size: 55%;
-    color:rgb(0, 0, 0, 0);
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    margin: 3px;
-    display:flex;
     justify-content: center;
     align-items: center;
 }
-.right-btn{
-    background-color: white;
-}
-.func-btn{
-    opacity:0;
-    pointer-events: none;
-}
-.close-btn{
-    background-color: #ec695f;
-    transition: background-color 0.1s ease-in-out;
-}
-.close-btn:hover{
-    background-color: #d85c52;
+
+.no-select {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
-.shrink-btn{
-    background-color: #f4bf4f;
-    transition: background-color 0.1s ease-in-out;
-}
-.shrink-btn:hover{
-    background-color: #e6a843;
+.resize-columns {
+    cursor: col-resize;
 }
 
-.expand-btn{
-    background-color: #61c554;
-    transition: background-color 0.1s ease-in-out;
-}
-.expand-btn:hover{
-    background-color: #50b146;
-}
-
-.grid-buttons:hover .right-btn{
-    display:none;
-}
-.grid-buttons:hover .func-btn{
-    opacity:1;
-    pointer-events:all;
-    color:rgb(0, 0, 0, 0.6);
-}
-
-.grid{
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-}
-.default-grid-container{
-    height: calc(100%/3);
-}
-.extra-grid-container{
-    height: calc(100%/4);
-}
-.grid-container-4{
-    display: none;
-}
-
-.top-dragdetector{
-    position: absolute;
-    width: calc(100% - 100px);
-    height: calc(100%/3 + 50px);
-    top: 0;
-    left: 50;
-    z-index: 1;
-}
-
-.bottom-dragdetector{
-    position: absolute;
-    width: calc(100% - 100px);
-    height: calc(100%/3 + 50px);
-    bottom: 0;
-    left: 50;
-    z-index: 1;
+.resize-grids {
+    cursor: row-resize;
 }

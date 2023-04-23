@@ -1,158 +1,213 @@
-document.addEventListener('DOMContentLoaded', function () {
-  // ========== column ========== //
-  const column1 = document.getElementById('column-1');
-  const column2 = document.getElementById('column-2');
-  const column3 = document.getElementById('column-3');
-  const DRAGGABLE_ZONE_WIDTH = 50;
-  let isResizing = false;
-  let activeColumns;
-  // ========== grid ========== //
-  const topDragDetectors = document.querySelectorAll('.top-dragdetector');
-  const bottomDragDetectors = document.querySelectorAll('.bottom-dragdetector');
-  const gridContainers1 = document.querySelectorAll('.grid-container-1');
-  const gridContainers2 = document.querySelectorAll('.grid-container-2');
-  const gridContainers3 = document.querySelectorAll('.grid-container-3');
-  const DRAGGABLE_ZONE_HEIGHT = 200;
-  let GridResizing = false;
-  let activeGridContainers = null;
+const columns = document.querySelectorAll('.column');
+const grids = document.querySelectorAll('.grid-container');
+let dragrange = 20;
 
-  function getMousePosition(event) {
-    return {
-      x: event.clientX,
-      y: event.clientY
-    };
-  }
+const updateFontSize = () => {
+    const flipClockContainer = document.querySelector(".flip-clock-container");
+    const secondsContainer = document.querySelector("#seconds-container");
+    const ampmContainer = document.querySelector("#ampm-container");
+    const divider = document.querySelector("#divider");
 
-  function handleMouseMove(event) {
-    handleColumnMouseMove(event);
-    handleGridMouseMove(event);
-  }
-  
-  function handleColumnMouseMove(event) {
-    if (!isResizing || !activeColumns) return;
-  
-    const mousePosition = getMousePosition(event);
-    const newWidth = mousePosition.x - activeColumns.leftColumn.getBoundingClientRect().left;
-    const totalWidth = activeColumns.leftColumn.offsetWidth + activeColumns.rightColumn.offsetWidth;
-  
-    activeColumns.leftColumn.style.width = newWidth + 'px';
-    activeColumns.rightColumn.style.width = (totalWidth - newWidth) + 'px';
-  }
-  
-  function handleGridMouseMove(event) {
-    if (!GridResizing || !activeGridContainers) return;
-  
-    if (activeGridContainers.mode === 'top') {
-      handleTopMouseMove(event);
-    } else {
-      handleBottomMouseMove(event);
-    }
-  }
+    const containerWidth = flipClockContainer.offsetWidth;
+    const fontSize = containerWidth * 0.2;
+    const subFontSize = containerWidth * 0.03;
+    const marginY = containerWidth * 0.027;
+    const marginX = containerWidth * 0.013;
+    const dividerHeight = containerWidth * 0.0025;
 
-  function handleTopMouseMove(event) {
-    const mousePosition = getMousePosition(event);
-    const newHeight = mousePosition.y - activeGridContainers.gridContainer1[0].getBoundingClientRect().top;
-    const totalHeight = activeGridContainers.gridContainer1[0].offsetHeight + activeGridContainers.gridContainer2[0].offsetHeight + activeGridContainers.gridContainer3[0].offsetHeight;
+    flipClockContainer.style.fontSize = `${fontSize}px`;
+    secondsContainer.style.fontSize = `${subFontSize}px`;
+    ampmContainer.style.fontSize = `${subFontSize}px`;
 
-    const newHeightPercentage = (newHeight / totalHeight) * 100;
-    const remainingHeightPercentage = (100 - newHeightPercentage) / 2;
+    ampmContainer.style.marginTop = `${marginY}px`;
+    ampmContainer.style.marginLeft = `${marginX}px`;
+    secondsContainer.style.marginBottom = `${marginY}px`;
+    secondsContainer.style.marginRight = `${marginX}px`;
 
-    activeGridContainers.gridContainer1.forEach(container => container.style.height = newHeightPercentage + '%');
-    activeGridContainers.gridContainer2.forEach(container => container.style.height = remainingHeightPercentage + '%');
-    activeGridContainers.gridContainer3.forEach(container => container.style.height = remainingHeightPercentage + '%');
-    activeGridContainers.topDragDetector[0].style.height = (newHeight + 50) + 'px';
-  }
+    divider.style.height = `${dividerHeight}px`;
+};
 
-  function handleBottomMouseMove(event) {
-    const mousePosition = getMousePosition(event);
-    const newHeight = activeGridContainers.gridContainer3[0].getBoundingClientRect().bottom - mousePosition.y;
-    const totalHeight = activeGridContainers.gridContainer1[0].offsetHeight + activeGridContainers.gridContainer2[0].offsetHeight + activeGridContainers.gridContainer3[0].offsetHeight;
+const updateWeatherFontSize = () => {
+    const weatherWidget = document.querySelector("#weather-widget");
+    const exactTemp = document.querySelector("#exact-temp");
+    const feelTemp = document.querySelector("#feel-temp");
+    const weatherDesc = document.querySelector("#weather-desc");
+    const weatherHeader = document.querySelector("#weather-widget h2");
+    const weatherIcon = document.querySelector("#weather-widget .weather-icon i");
 
-    const newHeightPercentage = (newHeight / totalHeight) * 100;
-    const remainingHeightPercentage = (100 - newHeightPercentage) / 2;
+    const weatherWidgetWidth = weatherWidget.offsetWidth;
+    const weatherWidgetHeight = weatherWidget.offsetHeight;
 
-    activeGridContainers.gridContainer3.forEach(container => container.style.height = newHeightPercentage + '%');
-    activeGridContainers.gridContainer1.forEach(container => container.style.height = remainingHeightPercentage + '%');
-    activeGridContainers.gridContainer2.forEach(container => container.style.height = remainingHeightPercentage + '%');
-    activeGridContainers.bottomDragDetector[0].style.height = (newHeight + 50) + 'px';
-  }
+    const weatherHeaderFontSize = Math.min(weatherWidgetWidth * 0.05, weatherWidgetHeight * 0.1);
+    const exactTempFontSize = Math.min(weatherWidgetWidth * 0.15, weatherWidgetHeight * 0.25);
+    const weatherIconSize = Math.min(weatherWidgetWidth * 0.15, weatherWidgetHeight * 0.25);
+    const feelTempFontSize = Math.min(weatherWidgetWidth * 0.04, weatherWidgetHeight * 0.08);
+    const weatherDescFontSize = Math.min(weatherWidgetWidth * 0.04, weatherWidgetHeight * 0.08);
 
-  function handleMouseDown(event) {
-    const mousePosition = getMousePosition(event);
-    const column1Rect = column1.getBoundingClientRect();
-    const column2Rect = column2.getBoundingClientRect();
-    const column3Rect = column3.getBoundingClientRect();
+    // New selectors for forecast elements
+    const forecastDays = document.querySelectorAll(".forecast .forcast-day");
+    const forecastTemps = document.querySelectorAll(".forecast .forcast-temp");
+    const forecastIcons = document.querySelectorAll(".forecast .forcast-icon");
+    const forecastWeathers = document.querySelectorAll(".forecast .forcast-weather");
 
-    if (mousePosition.x > column1Rect.right - DRAGGABLE_ZONE_WIDTH && mousePosition.x < column1Rect.right) {
-      isResizing = true;
-      activeColumns = { leftColumn: column1, rightColumn: column2 };
-    } else if (mousePosition.x > column2Rect.left && mousePosition.x < column2Rect.left + DRAGGABLE_ZONE_WIDTH) {
-      isResizing = true;
-      activeColumns = { leftColumn: column1, rightColumn: column2 };
-    } else if (mousePosition.x > column2Rect.right - DRAGGABLE_ZONE_WIDTH && mousePosition.x < column2Rect.right) {
-      isResizing = true;
-      activeColumns = { leftColumn: column2, rightColumn: column3 };
-    } else if (mousePosition.x > column3Rect.left && mousePosition.x < column3Rect.left + DRAGGABLE_ZONE_WIDTH) {
-      isResizing = true;
-      activeColumns = { leftColumn: column2, rightColumn: column3 };
-    } else {
-      isResizing = false;
-      activeColumns = null;
-    }
+    // New font sizes for forecast elements
+    const forecastDayFontSize = Math.min(weatherWidgetWidth * 0.03, weatherWidgetHeight * 0.06);
+    const forecastTempFontSize = Math.min(weatherWidgetWidth * 0.04, weatherWidgetHeight * 0.08);
+    const forecastIconSize = Math.min(weatherWidgetWidth * 0.06, weatherWidgetHeight * 0.12);
+    const forecastWeatherFontSize = Math.min(weatherWidgetWidth * 0.02, weatherWidgetHeight * 0.04);
 
-    for (let i = 0; i < topDragDetectors.length; i++) {
-      
-      if (mousePosition.x > column1Rect.left && mousePosition.x < column1Rect.right) {
-        i = 0;
-      }
-      else if (mousePosition.x > column2Rect.left && mousePosition.x < column2Rect.right) {
-        i = 1;
-      }
-      else if (mousePosition.x > column3Rect.left && mousePosition.x < column3Rect.right) {
-        i = 2;
-      }
-      const topDragDetectorRect = topDragDetectors[i].getBoundingClientRect();
-      const bottomDragDetectorRect = bottomDragDetectors[i].getBoundingClientRect();
+    // Add new selectors for sun-moon elements
+    const sunMoonList = document.querySelector(".sun-moon-list");
+    const sunMoonItems = document.querySelectorAll(".sun-moon-list .sun-moon-item");
+    const sunMoonIcons = document.querySelectorAll(".sun-moon-list .sun-moon-item i");
 
-      if (mousePosition.y > topDragDetectorRect.bottom - DRAGGABLE_ZONE_HEIGHT && mousePosition.y < topDragDetectorRect.bottom) {
-        GridResizing = true;
-        activeGridContainers = {
-          topDragDetector: [topDragDetectors[i]],
-          bottomDragDetector: [bottomDragDetectors[i]],
-          gridContainer1: [gridContainers1[i]],
-          gridContainer2: [gridContainers2[i]],
-          gridContainer3: [gridContainers3[i]],
-          mode: 'top'
-        };
-        break;
-      }
-      else if (mousePosition.y > bottomDragDetectorRect.top && mousePosition.y < bottomDragDetectorRect.top + DRAGGABLE_ZONE_HEIGHT) {
-        GridResizing = true;
-        activeGridContainers = {
-          topDragDetector: [topDragDetectors[i]],
-          bottomDragDetector: [bottomDragDetectors[i]],
-          gridContainer1: [gridContainers1[i]],
-          gridContainer2: [gridContainers2[i]],
-          gridContainer3: [gridContainers3[i]],
-          mode: 'bottom'
-        };
-        break;
-      }
-      else {
-        GridResizing = false;
-        activeGridContainers = null;
-      }
-    }
-  }
+    // Add new font sizes for sun-moon elements
+    const sunMoonListMinHeight = Math.min(weatherWidgetWidth * 0.1, weatherWidgetHeight * 0.1);
+    const sunMoonItemFontSize = Math.min(weatherWidgetWidth * 0.02, weatherWidgetHeight * 0.04);
+    const sunMoonIconSize = Math.min(weatherWidgetWidth * 0.04, weatherWidgetHeight * 0.08);
 
-  function handleMouseUp() {
-    isResizing = false;
-    activeColumns = null;
-    GridResizing = false;
-    activeGridContainers = null;
-  }
+    weatherHeader.style.fontSize = `${weatherHeaderFontSize}px`;
+    exactTemp.style.fontSize = `${exactTempFontSize}px`;
+    weatherIcon.style.fontSize = `${weatherIconSize}px`;
+    feelTemp.style.fontSize = `${feelTempFontSize}px`;
+    weatherDesc.style.fontSize = `${weatherDescFontSize}px`;
 
-  document.addEventListener('mousedown', handleMouseDown);
-  document.addEventListener('mousemove', handleMouseMove);
-  document.addEventListener('mouseup', handleMouseUp);
+    // Set font sizes for forecast elements
+    forecastDays.forEach(day => {
+        day.style.fontSize = `${forecastDayFontSize}px`;
+    });
+    forecastTemps.forEach(temp => {
+        temp.style.fontSize = `${forecastTempFontSize}px`;
+    });
+    forecastIcons.forEach(icon => {
+        icon.style.fontSize = `${forecastIconSize}px`;
+    });
+    forecastWeathers.forEach(weather => {
+        weather.style.fontSize = `${forecastWeatherFontSize}px`;
+    });
+
+    // Set font sizes for sun-moon elements
+    sunMoonList.style.minHeight = `${sunMoonListMinHeight}px`;
+    sunMoonItems.forEach(item => {
+        item.style.fontSize = `${sunMoonItemFontSize}px`;
+    });
+    sunMoonIcons.forEach(icon => {
+        icon.style.fontSize = `${sunMoonIconSize}px`;
+    });
+};
+
+let isResizingColumns = false;
+let isResizingGrids = false;
+let columnToResize, columnToResizeNext;
+let gridToResize, gridToResizeNext, gridToResizePrevious;
+let lastX = 0;
+let lastY = 0;
+const threshold = 10;
+
+columns.forEach((column, index) => {
+    column.addEventListener('mousedown', (e) => {
+        const target = e.target;
+        const targetRect = target.getBoundingClientRect();
+        const leftEdge = targetRect.left;
+        const rightEdge = targetRect.right;
+
+        if ((index > 0 && e.clientX >= leftEdge - dragrange && e.clientX <= leftEdge + dragrange) ||
+            (index < columns.length - 1 && e.clientX >= rightEdge - dragrange && e.clientX <= rightEdge + dragrange)) {
+            document.body.classList.add('resize-columns');
+        } else {
+            document.body.classList.remove('resize-columns');
+        }
+
+        if (index > 0 && e.clientX >= leftEdge - dragrange && e.clientX <= leftEdge + dragrange) {
+            columnToResize = columns[index - 1];
+            columnToResizeNext = column;
+            isResizingColumns = true;
+        } else if (index < columns.length - 1 && e.clientX >= rightEdge - dragrange && e.clientX <= rightEdge + dragrange) {
+            columnToResize = column;
+            columnToResizeNext = columns[index + 1];
+            isResizingColumns = true;
+        }
+
+        lastX = e.clientX;
+    });
 });
+
+grids.forEach((grid, index) => {
+    grid.addEventListener('mousedown', (e) => {
+        const target = e.target;
+        const targetRect = target.getBoundingClientRect();
+        const topEdge = targetRect.top;
+        const bottomEdge = targetRect.bottom;
+
+        if ((index % 2 === 0 && e.clientY >= bottomEdge - dragrange && e.clientY <= bottomEdge + dragrange) ||
+            (index % 2 === 1 && e.clientY >= topEdge - dragrange && e.clientY <= topEdge + dragrange)) {
+            document.body.classList.add('resize-grids');
+        } else {
+            document.body.classList.remove('resize-grids');
+        }
+
+        if (index % 2 === 0 && e.clientY >= bottomEdge - dragrange && e.clientY <= bottomEdge + dragrange) {
+            gridToResize = grids[index];
+            gridToResizeNext = grids[index + 1];
+            isResizingGrids = true;
+        } else if (index % 2 === 1 && e.clientY >= topEdge - dragrange && e.clientY <= topEdge + dragrange) {
+            gridToResize = grids[index - 1];
+            gridToResizeNext = grids[index];
+            isResizingGrids = true;
+        }
+
+        lastY = e.clientY;
+    });
+});
+
+function onMouseMove(e) {
+    if (isResizingColumns || isResizingGrids) {
+        document.body.classList.add('no-select');
+    } else {
+        document.body.classList.remove('no-select');
+    }
+    if (isResizingColumns) {
+        const deltaX = e.clientX - lastX;
+        if (Math.abs(deltaX) >= threshold) {
+            const newWidth = columnToResize.offsetWidth + deltaX;
+            const newWidthNext = columnToResizeNext.offsetWidth - deltaX;
+            columnToResize.style.width = newWidth + 'px';
+            columnToResizeNext.style.width = newWidthNext + 'px';
+            lastX = e.clientX;
+        }
+        updateWeatherFontSize();
+        updateFontSize();
+    }
+    if (isResizingGrids) {
+        const deltaY = e.clientY - lastY;
+        if (Math.abs(deltaY) >= threshold) {
+            const newHeight = gridToResize.offsetHeight + deltaY;
+            const newHeightNext = gridToResizeNext.offsetHeight - deltaY;
+            gridToResize.style.height = newHeight + 'px';
+            gridToResizeNext.style.height = newHeightNext + 'px';
+            lastY = e.clientY;
+        }
+        updateWeatherFontSize();
+    }
+}
+
+function onMouseUp() {
+    isResizingColumns = false;
+    isResizingGrids = false;
+
+    lastX = 0;
+    lastY = 0;
+
+    columnToResize = null;
+    columnToResizeNext = null;
+    gridToResize = null;
+    gridToResizeNext = null;
+
+    document.body.classList.remove('no-select');
+    document.body.classList.remove('resize-columns');
+    document.body.classList.remove('resize-grids');
+
+}
+
+document.addEventListener('mousemove', onMouseMove);
+document.addEventListener('mouseup', onMouseUp);

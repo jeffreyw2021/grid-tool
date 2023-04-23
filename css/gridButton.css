@@ -1,0 +1,58 @@
+.grid-buttons{
+    position: absolute;
+    padding: 10px 8px;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+}
+.grid-btn{
+    font-size: 55%;
+    color:rgb(0, 0, 0, 0);
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin: 3px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.right-btn{
+    background-color: white;
+}
+.func-btn{
+    opacity:0;
+    pointer-events: none;
+}
+.close-btn{
+    background-color: #ec695f;
+    transition: background-color 0.1s ease-in-out;
+}
+.close-btn:hover{
+    background-color: #d85c52;
+}
+
+.shrink-btn{
+    background-color: #f4bf4f;
+    transition: background-color 0.1s ease-in-out;
+}
+.shrink-btn:hover{
+    background-color: #e6a843;
+}
+
+.expand-btn{
+    background-color: #61c554;
+    transition: background-color 0.1s ease-in-out;
+}
+.expand-btn:hover{
+    background-color: #50b146;
+}
+
+.grid-buttons:hover .right-btn{
+    display:none;
+}
+.grid-buttons:hover .func-btn{
+    opacity:1;
+    pointer-events:all;
+    color:rgb(0, 0, 0, 0.6);
+}
