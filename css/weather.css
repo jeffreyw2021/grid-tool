@@ -186,6 +186,7 @@ font-family: 'Rubik', sans-serif;
     margin-top: 40px;
     -ms-overflow-style: none; /* For Internet Explorer and Edge */
     scrollbar-width: none; /* For Firefox */
+    scroll-behavior: smooth;
 }
 .sun-moon-list::-webkit-scrollbar {
     display: none;
