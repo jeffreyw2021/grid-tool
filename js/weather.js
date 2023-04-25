@@ -1,3 +1,33 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const flipClockContainer = document.querySelector(".flip-clock-container");
+    const secondsContainer = document.querySelector("#seconds-container");
+    const ampmContainer = document.querySelector("#ampm-container");
+    const divider = document.querySelector("#divider");
+
+    function adjustStyles() {
+        const containerWidth = flipClockContainer.offsetWidth;
+        const fontSize = containerWidth * 0.2;
+        const subFontSize = containerWidth * 0.03;
+        const marginY = containerWidth * 0.027;
+        const marginX = containerWidth * 0.013;
+        const dividerHeight = containerWidth * 0.0025;
+
+        flipClockContainer.style.fontSize = `${fontSize}px`;
+        secondsContainer.style.fontSize = `${subFontSize}px`;
+        ampmContainer.style.fontSize = `${subFontSize}px`;
+
+        ampmContainer.style.marginTop = `${marginY}px`;
+        ampmContainer.style.marginLeft = `${marginX}px`;
+        secondsContainer.style.marginBottom = `${marginY}px`;
+        secondsContainer.style.marginRight = `${marginX}px`;
+
+        divider.style.height = `${dividerHeight}px`;
+    }
+
+
+    adjustStyles();
+});
+
 function getWeatherBackground(description) {
     const weatherConditions = [
         { condition: 'clear sky', background: { day: 'linear-gradient(135deg, #56CCF2, #2F80ED)', night: 'linear-gradient(135deg, #020024, #090979)' } },
@@ -126,16 +156,68 @@ function scrollSunMoonList() {
     }
 }
 
-// function updateCurrentTime() {
-//     const sunMoonItems = document.querySelectorAll('.sun-moon-item');
-//     const currentHour = new Date().getHours();
-//     const currentItem = sunMoonItems[currentHour];
+function adjustWeatherStyles() {
+    const weatherWidget = document.getElementById("weather-widget");
+    const weatherHeader = document.querySelector("#weather-container h2");
+    const exactTemp = document.getElementById("exact-temp");
+    const weatherIcon = document.querySelector(".weather-icon i");
+    const feelTemp = document.getElementById("feel-temp");
+    const weatherDesc = document.getElementById("weather-desc");
 
-//     if (currentItem) {
-//         const currentMinute = new Date().getMinutes();
-//         currentItem.innerHTML = `<i class="${currentItem.firstElementChild.className}" aria-hidden="true"></i> ${currentHour}:${currentMinute.toString().padStart(2, '0')}`;
-//     }
-// }
+    const forecastDays = document.querySelectorAll(".forecast .forcast-day");
+    const forecastTemps = document.querySelectorAll(".forecast .forcast-temp");
+    const forecastIcons = document.querySelectorAll(".forecast .forcast-icon");
+    const forecastWeathers = document.querySelectorAll(".forecast .forcast-weather");
+
+    const sunMoonList = document.querySelector(".sun-moon-list");
+    const sunMoonItems = document.querySelectorAll(".sun-moon-item");
+    const sunMoonIcons = document.querySelectorAll(".sun-moon-item i");
+
+    const weatherWidgetWidth = weatherWidget.offsetWidth;
+    const weatherWidgetHeight = weatherWidget.offsetHeight;
+
+    const weatherHeaderFontSize = Math.min(weatherWidgetWidth * 0.05, weatherWidgetHeight * 0.1);
+    const exactTempFontSize = Math.min(weatherWidgetWidth * 0.15, weatherWidgetHeight * 0.25);
+    const weatherIconSize = Math.min(weatherWidgetWidth * 0.15, weatherWidgetHeight * 0.25);
+    const feelTempFontSize = Math.min(weatherWidgetWidth * 0.04, weatherWidgetHeight * 0.08);
+    const weatherDescFontSize = Math.min(weatherWidgetWidth * 0.04, weatherWidgetHeight * 0.08);
+
+    const forecastDayFontSize = Math.min(weatherWidgetWidth * 0.03, weatherWidgetHeight * 0.06);
+    const forecastTempFontSize = Math.min(weatherWidgetWidth * 0.04, weatherWidgetHeight * 0.08);
+    const forecastIconSize = Math.min(weatherWidgetWidth * 0.06, weatherWidgetHeight * 0.12);
+    const forecastWeatherFontSize = Math.min(weatherWidgetWidth * 0.02, weatherWidgetHeight * 0.04);
+
+    const sunMoonListMinHeight = Math.min(weatherWidgetWidth * 0.1, weatherWidgetHeight * 0.1);
+    const sunMoonItemFontSize = Math.min(weatherWidgetWidth * 0.02, weatherWidgetHeight * 0.04);
+    const sunMoonIconSize = Math.min(weatherWidgetWidth * 0.04, weatherWidgetHeight * 0.08);
+
+    weatherHeader.style.fontSize = `${weatherHeaderFontSize}px`;
+    exactTemp.style.fontSize = `${exactTempFontSize}px`;
+    weatherIcon.style.fontSize = `${weatherIconSize}px`;
+    feelTemp.style.fontSize = `${feelTempFontSize}px`;
+    weatherDesc.style.fontSize = `${weatherDescFontSize}px`;
+
+    forecastDays.forEach(day => {
+        day.style.fontSize = `${forecastDayFontSize}px`;
+    });
+    forecastTemps.forEach(temp => {
+        temp.style.fontSize = `${forecastTempFontSize}px`;
+    });
+    forecastIcons.forEach(icon => {
+        icon.style.fontSize = `${forecastIconSize}px`;
+    });
+    forecastWeathers.forEach(weather => {
+        weather.style.fontSize = `${forecastWeatherFontSize}px`;
+    });
+
+    sunMoonList.style.minHeight = `${sunMoonListMinHeight}px`;
+    sunMoonItems.forEach(item => {
+        item.style.fontSize = `${sunMoonItemFontSize}px`;
+    });
+    sunMoonIcons.forEach(icon => {
+        icon.style.fontSize = `${sunMoonIconSize}px`;
+    });
+}
 
 async function updateWeatherWidget() {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -231,6 +313,7 @@ async function updateWeatherWidget() {
                     `;
 
                         weatherWidget.innerHTML = html;
+                        adjustWeatherStyles();
                         scrollSunMoonList();
                     });
             });
