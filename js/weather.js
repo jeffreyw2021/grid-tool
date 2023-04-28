@@ -220,9 +220,7 @@ function adjustWeatherStyles() {
     });
 
     const hourlyTemps = document.querySelectorAll(".sun-moon-item .hourly-temp");
-
     const hourlyTempFontSize = Math.min(weatherWidgetWidth * 0.02, weatherWidgetHeight * 0.04);
-
     hourlyTemps.forEach(temp => {
         temp.style.fontSize = `${hourlyTempFontSize}px`;
     });
@@ -234,34 +232,34 @@ async function updateWeatherWidget() {
         const lon = position.coords.longitude;
 
         // Call Sunrise-Sunset API to get sunrise and sunset data
-        const date = new Date().toISOString().slice(0, 10); // Get current date in YYYY-MM-DD format
+        const currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() - 1);
+        const date = currentDate.toISOString().slice(0, 10); // Get current date in YYYY-MM-DD format
         fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&date=${date}&formatted=0`)
             .then((response) => response.json())
             .then((sunData) => {
                 const sunrise = new Date(sunData.results.sunrise).getHours();
                 const sunset = new Date(sunData.results.sunset).getHours();
 
-                // const visualcrossingapi = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}/${date}?key=D5W7DZSAG2QBGTC4JS4HPRX8Y&include=days,hours`;
-                // console.log(visualcrossingapi)
+                const visualcrossingapi = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}/${date}?key=D5W7DZSAG2QBGTC4JS4HPRX8Y&include=days,hours`;
+                console.log(visualcrossingapi)
                 fetch(
                     `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}/${date}?key=D5W7DZSAG2QBGTC4JS4HPRX8Y&include=days,hours`
-                  )
+                )
                     .then((response) => response.json())
                     .then((hourData) => {
-                      const { hours } = hourData.days[0];
-                      hours.forEach((hour) => {
-                        hour.iconCode = hour.conditions.toLowerCase();
-                      });
+                        const { hours } = hourData.days[0];
+                        hours.forEach((hour) => {
+                            hour.iconCode = hour.conditions.toLowerCase();
+                        });
 
                         // Generate sun/moon condition list for each hour
                         const sunMoonList = hours.map((hour, i) => {
-                            const isDaytime = i >= sunrise && i < sunset;
-                            const dayNightIcon = isDaytime ? 'fas fa-sun' : 'fas fa-moon';
                             const temperature = Math.round((hour.temp - 32) * 5 / 9);
                             const weatherIcon = getFontAwesomeIcon(hour.iconCode);
                             return `<li class="sun-moon-item">${i}:00<i class="${weatherIcon}" aria-hidden="true"></i><p>${temperature}°</p></li>`;
-                          }).join('');                          
-                        
+                        }).join('');
+
                         // Call OpenWeatherMap API to get weather data
                         // const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=431594b196de136c21bc7888f08b5444`;
                         // console.log(apiUrl)
