@@ -117,3 +117,14 @@
     })();
 
 })();
+
+// get the p element with id "date"
+const dateElement = document.getElementById("date");
+
+// get the current date and day of the week
+const currentDate = new Date();
+const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const dayOfWeek = daysOfWeek[currentDate.getDay()];
+
+// set the text of the p element
+dateElement.textContent = `${currentDate.toLocaleDateString()} ${dayOfWeek}`;

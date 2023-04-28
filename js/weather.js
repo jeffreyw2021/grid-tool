@@ -26,6 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     adjustStyles();
+    updateWeatherWidget();
+    scrollSunMoonList();
 });
 
 function getWeatherBackground(description) {
@@ -155,7 +157,6 @@ function scrollSunMoonList() {
         sunMoonList.scrollLeft = itemOffset - (parentWidth / 2) + (itemWidth / 2) - padding / 2;
     }
 }
-
 function adjustWeatherStyles() {
     const weatherWidget = document.getElementById("weather-widget");
     const weatherHeader = document.querySelector("#weather-container h2");
@@ -217,6 +218,14 @@ function adjustWeatherStyles() {
     sunMoonIcons.forEach(icon => {
         icon.style.fontSize = `${sunMoonIconSize}px`;
     });
+
+    const hourlyTemps = document.querySelectorAll(".sun-moon-item .hourly-temp");
+
+    const hourlyTempFontSize = Math.min(weatherWidgetWidth * 0.02, weatherWidgetHeight * 0.04);
+
+    hourlyTemps.forEach(temp => {
+        temp.style.fontSize = `${hourlyTempFontSize}px`;
+    });
 }
 
 async function updateWeatherWidget() {
@@ -232,89 +241,104 @@ async function updateWeatherWidget() {
                 const sunrise = new Date(sunData.results.sunrise).getHours();
                 const sunset = new Date(sunData.results.sunset).getHours();
 
-                // Generate sun/moon condition list for each hour
-                const sunMoonList = Array.from({ length: 24 }, (_, i) => {
-                    const isDaytime = i >= sunrise && i < sunset;
-                    const dayNightIcon = isDaytime ? 'fas fa-sun' : 'fas fa-moon';
-                    return `<li class="sun-moon-item"><i class="${dayNightIcon}" aria-hidden="true"></i> ${i}:00</li>`;
-                }).join('');
-
-                // Call OpenWeatherMap API to get weather data
+                const visualcrossingapi = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}/${date}?key=D5W7DZSAG2QBGTC4JS4HPRX8Y&include=days,hours`;
+                console.log(visualcrossingapi)
                 fetch(
-                    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=431594b196de136c21bc7888f08b5444`
-                )
+                    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}/${date}?key=D5W7DZSAG2QBGTC4JS4HPRX8Y&include=days,hours`
+                  )
                     .then((response) => response.json())
-                    .then((data) => {
-                        // Extract relevant data from API response
-                        const { city, list } = data;
-                        const currentWeather = list[0];
+                    .then((hourData) => {
+                      const { hours } = hourData.days[0];
+                      hours.forEach((hour) => {
+                        hour.iconCode = hour.conditions.toLowerCase();
+                      });
 
-                        // Set background based on weather description
-                        const weatherWidget = document.getElementById("weather-widget");
-                        weatherWidget.style.background = getWeatherBackground(currentWeather.weather[0].description);
+                        // Generate sun/moon condition list for each hour
+                        const sunMoonList = hours.map((hour, i) => {
+                            const isDaytime = i >= sunrise && i < sunset;
+                            const dayNightIcon = isDaytime ? 'fas fa-sun' : 'fas fa-moon';
+                            const temperature = Math.round((hour.temp - 32) * 5 / 9);
+                            const weatherIcon = getFontAwesomeIcon(hour.iconCode);
+                            return `<li class="sun-moon-item">${i}:00<i class="${weatherIcon}" aria-hidden="true"></i><p>${temperature}°</p></li>`;
+                          }).join('');                          
+                        
+                        // Call OpenWeatherMap API to get weather data
+                        const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=431594b196de136c21bc7888f08b5444`;
+                        console.log(apiUrl)
+                        fetch(
+                            `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=431594b196de136c21bc7888f08b5444`
+                        )
+                            .then((response) => response.json())
+                            .then((data) => {
+                                // Extract relevant data from API response
+                                const { city, list } = data;
+                                const currentWeather = list[0];
 
-                        // Get Font Awesome icon
-                        const icon = getFontAwesomeIcon(currentWeather.weather[0].icon);
+                                // Set background based on weather description
+                                const weatherWidget = document.getElementById("weather-widget");
 
-                        // Define array to map day of week
-                        const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+                                weatherWidget.style.background = getWeatherBackground(currentWeather.weather[0].description);
+                                // Get Font Awesome icon
+                                const icon = getFontAwesomeIcon(currentWeather.weather[0].icon);
+                                // Define array to map day of week
+                                const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-                        // Group forecast data by day of week
-                        const forecastDataByDay = {};
-                        list.forEach((forecast) => {
-                            const date = new Date(forecast.dt * 1000);
-                            const dayOfWeek = daysOfWeek[date.getDay()];
-                            if (!forecastDataByDay[dayOfWeek]) {
-                                forecastDataByDay[dayOfWeek] = [];
-                            }
-                            forecastDataByDay[dayOfWeek].push(forecast);
-                        });
+                                // Group forecast data by day of week
+                                const forecastDataByDay = {};
+                                list.forEach((forecast) => {
+                                    const date = new Date(forecast.dt * 1000);
+                                    const dayOfWeek = daysOfWeek[date.getDay()];
+                                    if (!forecastDataByDay[dayOfWeek]) {
+                                        forecastDataByDay[dayOfWeek] = [];
+                                    }
+                                    forecastDataByDay[dayOfWeek].push(forecast);
+                                });
 
-                        // Create HTML to display weather data
-                        const forecastHtml = Object.entries(forecastDataByDay).map(([dayOfWeek, forecasts]) => {
-                            const icon = getFontAwesomeIcon(forecasts[0].weather[0].icon);
-                            const temp = Math.round(forecasts[0].main.temp);
-                            const desc = forecasts[0].weather[0].description;
-                            return `
-                            <div class="forecast">
-                            <p class="forcast-day">${dayOfWeek}</p>
-                            <p class="forcast-temp">${temp}°</p>
-                            <i class="${icon} forcast-icon" aria-hidden="true"></i>
-                            <p class="forcast-weather">${desc}</p>
-                            </div>
-                        `;
-                        }).join('');
+                                // Create HTML to display weather data
+                                const forecastHtml = Object.entries(forecastDataByDay).map(([dayOfWeek, forecasts]) => {
+                                    const icon = getFontAwesomeIcon(forecasts[0].weather[0].icon);
+                                    const temp = Math.round(forecasts[0].main.temp);
+                                    const desc = forecasts[0].weather[0].description;
+                                    return `
+                                    <div class="forecast">
+                                    <p class="forcast-day">${dayOfWeek}</p>
+                                    <p class="forcast-temp">${temp}°</p>
+                                    <i class="${icon} forcast-icon" aria-hidden="true"></i>
+                                    <p class="forcast-weather">${desc}</p>
+                                    </div>
+                                `;
+                                }).join('');
 
-                        // Determine whether it's day or night
-                        const currentHour = new Date().getHours();
-                        const isDaytime = currentHour >= sunrise && currentHour < sunset;
-                        const dayNightIcon = isDaytime ? 'fas fa-sun' : 'fas fa-moon';
+                                // Determine whether it's day or night
+                                const currentHour = new Date().getHours();
+                                const isDaytime = currentHour >= sunrise && currentHour < sunset;
+                                const dayNightIcon = isDaytime ? 'fas fa-sun' : 'fas fa-moon';
 
-                        const html = `
-                        <div id="weather-container">
-                            <h2>${city.name}</h2>
-                            <div id="tempWeather">
-                                <p id="exact-temp">${Math.round(currentWeather.main.temp)}°</p>
-                                <div class="weather-icon">
-                                    <i class="${icon}" aria-hidden="true"></i>
+                                const html = `
+                                <div id="weather-container">
+                                    <h2>${city.name}</h2>
+                                    <div id="tempWeather">
+                                        <p id="exact-temp">${Math.round(currentWeather.main.temp)}°</p>
+                                        <div class="weather-icon">
+                                            <i class="${icon}" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div id="weather-details">
+                                        <p id="feel-temp">feels like: ${Math.round(currentWeather.main.feels_like)}°</p>
+                                        <p id="weather-desc">${currentWeather.weather[0].description}</p>
+                                    </div>
+                                    <ul class="sun-moon-list">
+                                        ${sunMoonList}
+                                    </ul>
+                                    <div id="weather-forecast">
+                                        ${forecastHtml}
+                                    </div>
                                 </div>
-                            </div>
-                            <div id="weather-details">
-                                <p id="feel-temp">feels like: ${Math.round(currentWeather.main.feels_like)}°</p>
-                                <p id="weather-desc">${currentWeather.weather[0].description}</p>
-                            </div>
-                            <ul class="sun-moon-list">
-                                ${sunMoonList}
-                            </ul>
-                            <div id="weather-forecast">
-                                ${forecastHtml}
-                            </div>
-                        </div>
-                    `;
+                                `;
 
-                        weatherWidget.innerHTML = html;
-                        adjustWeatherStyles();
-                        scrollSunMoonList();
+                                weatherWidget.innerHTML = html;
+                                adjustWeatherStyles();
+                            });
                     });
             });
     });
@@ -322,9 +346,10 @@ async function updateWeatherWidget() {
 
 // Call updateWeatherWidget once when the page loads
 updateWeatherWidget();
+scrollSunMoonList();
 
 // Call updateWeatherWidget every hour
 setInterval(updateWeatherWidget, 1000 * 60 * 30);
-// Scroll the sun-moon list every 30 minutes
-setInterval(scrollSunMoonList, 1000 * 60);
+// Scroll the sun-moon list every 30 seconds
+setInterval(scrollSunMoonList, 1000 * 30);
 

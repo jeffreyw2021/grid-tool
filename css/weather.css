@@ -12,7 +12,8 @@ font-family: 'Rubik', sans-serif;
 #weather-widget {
     width: 100%;
     height: 100%;
-    padding: 40px 12%;
+    padding: 0px 12%;
+    padding-top: 40px;
     color: #fff;
     border-radius: 10px;
     text-align: center;
@@ -22,6 +23,7 @@ font-family: 'Rubik', sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: stretch;
     box-sizing: border-box;
     overflow: auto;
     -ms-overflow-style: none; /* For Internet Explorer and Edge */
@@ -92,38 +94,6 @@ font-family: 'Rubik', sans-serif;
     margin: 0 !important;
 }
 
-/* #sun-container {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#sun-bar {
-    width: 100%;
-    height: 5px;
-    background: #ECEFF1;
-    position: relative;
-    border-radius: 5px;
-}
-
-#sun-bar::before {
-    content: '';
-    position: absolute;
-    height: 5px;
-    background: #FFA726;
-    transition: width 1s;
-    border-radius: 5px;
-}
-
-#sunset-time {
-    font-size: 16px;
-    font-weight: 500;
-    white-space: nowrap;
-    color: #ECEFF1;
-    margin-left: 20px;
-} */
-
 /* ========== FORECAST ========== */
 
 #weather-forecast {
@@ -132,7 +102,6 @@ font-family: 'Rubik', sans-serif;
     display: flex;
     justify-content: space-between;
     font-weight: 400;
-    margin-top: 20px;
     padding-bottom: 40px;
 }
 #weather-forecast > *{
@@ -176,13 +145,11 @@ font-family: 'Rubik', sans-serif;
 .sun-moon-list {
     align-self: center;
     width: 102.5%;
-    min-height: 66px;
     display: flex;
     flex-wrap: nowrap;
     overflow-y:hidden;
     overflow-x: auto;
     list-style-type: none;
-    padding: 0;
     margin-top: 40px;
     -ms-overflow-style: none; /* For Internet Explorer and Edge */
     scrollbar-width: none; /* For Firefox */

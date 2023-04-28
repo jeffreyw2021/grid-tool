@@ -6,15 +6,22 @@ font-family: 'Lexend Deca', sans-serif;
 font-family: 'Outfit', sans-serif;
 font-family: 'Rubik', sans-serif; 
 */
+*{
+    font-family: 'Rubik', sans-serif; 
+    --clock-color: #4cdc6e;
+}
 
 #app {
     width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Rubik', sans-serif; 
-    --clock-color: #4cdc6e;
+}
+
+#date{
+    color:var(--clock-color);
+    margin-bottom: 30px;
+    font-weight: 400;
 }
 
 .flip-clock-container {
