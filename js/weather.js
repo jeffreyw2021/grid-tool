@@ -241,8 +241,8 @@ async function updateWeatherWidget() {
                 const sunrise = new Date(sunData.results.sunrise).getHours();
                 const sunset = new Date(sunData.results.sunset).getHours();
 
-                const visualcrossingapi = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}/${date}?key=D5W7DZSAG2QBGTC4JS4HPRX8Y&include=days,hours`;
-                console.log(visualcrossingapi)
+                // const visualcrossingapi = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}/${date}?key=D5W7DZSAG2QBGTC4JS4HPRX8Y&include=days,hours`;
+                // console.log(visualcrossingapi)
                 fetch(
                     `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}/${date}?key=D5W7DZSAG2QBGTC4JS4HPRX8Y&include=days,hours`
                   )
@@ -263,8 +263,8 @@ async function updateWeatherWidget() {
                           }).join('');                          
                         
                         // Call OpenWeatherMap API to get weather data
-                        const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=431594b196de136c21bc7888f08b5444`;
-                        console.log(apiUrl)
+                        // const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=431594b196de136c21bc7888f08b5444`;
+                        // console.log(apiUrl)
                         fetch(
                             `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=431594b196de136c21bc7888f08b5444`
                         )
