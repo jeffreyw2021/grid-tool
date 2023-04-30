@@ -232,17 +232,15 @@ async function updateWeatherWidget() {
         const lon = position.coords.longitude;
 
         // Call Sunrise-Sunset API to get sunrise and sunset data
-        const currentDate = new Date();
-        currentDate.setDate(currentDate.getDate() - 1);
-        const date = currentDate.toISOString().slice(0, 10); // Get current date in YYYY-MM-DD format
+        const date = new Date().toISOString().slice(0, 10); // Get current date in YYYY-MM-DD format
         fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&date=${date}&formatted=0`)
             .then((response) => response.json())
             .then((sunData) => {
                 const sunrise = new Date(sunData.results.sunrise).getHours();
                 const sunset = new Date(sunData.results.sunset).getHours();
 
-                const visualcrossingapi = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}/${date}?key=D5W7DZSAG2QBGTC4JS4HPRX8Y&include=days,hours`;
-                console.log(visualcrossingapi)
+                // const visualcrossingapi = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}/${date}?key=D5W7DZSAG2QBGTC4JS4HPRX8Y&include=days,hours`;
+                // console.log(visualcrossingapi)
                 fetch(
                     `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}/${date}?key=D5W7DZSAG2QBGTC4JS4HPRX8Y&include=days,hours`
                 )

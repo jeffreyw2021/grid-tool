@@ -118,13 +118,22 @@
 
 })();
 
-// get the p element with id "date"
+// get the element with id "date"
 const dateElement = document.getElementById("date");
 
-// get the current date and day of the week
-const currentDate = new Date();
-const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-const dayOfWeek = daysOfWeek[currentDate.getDay()];
+// update the date function
+function updateDate() {
+  // get the current date and day of the week
+  const currentDate = new Date();
+  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const dayOfWeek = daysOfWeek[currentDate.getDay()];
 
-// set the text of the p element
-dateElement.textContent = `${currentDate.toLocaleDateString()} ${dayOfWeek}`;
+  // set the text of the p element
+  dateElement.textContent = `${currentDate.toLocaleDateString()} ${dayOfWeek}`;
+}
+
+// update the date immediately on page load
+updateDate();
+
+// update the date every 12 hours
+setInterval(updateDate, 12 * 60 * 60 * 1000);
