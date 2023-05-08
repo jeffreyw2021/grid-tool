@@ -28,12 +28,21 @@ const updateFontSize = () => {
 };
 
 const updateWeatherFontSize = () => {
-    const weatherWidget = document.querySelector("#weather-widget");
-    const exactTemp = document.querySelector("#exact-temp");
-    const feelTemp = document.querySelector("#feel-temp");
-    const weatherDesc = document.querySelector("#weather-desc");
-    const weatherHeader = document.querySelector("#weather-widget h2");
-    const weatherIcon = document.querySelector("#weather-widget .weather-icon i");
+    const weatherWidget = document.getElementById("weather-widget");
+    const weatherHeader = document.querySelector("#weather-container h2");
+    const exactTemp = document.getElementById("exact-temp");
+    const weatherIcon = document.querySelector(".weather-icon i");
+    const feelTemp = document.getElementById("feel-temp");
+    const weatherDesc = document.getElementById("weather-desc");
+
+    const forecastDays = document.querySelectorAll(".forecast .forcast-day");
+    const forecastTemps = document.querySelectorAll(".forecast .forcast-temp");
+    const forecastIcons = document.querySelectorAll(".forecast .forcast-icon");
+    const forecastWeathers = document.querySelectorAll(".forecast .forcast-weather");
+
+    const sunMoonList = document.querySelector(".sun-moon-list");
+    const sunMoonItems = document.querySelectorAll(".sun-moon-item");
+    const sunMoonIcons = document.querySelectorAll(".sun-moon-item i");
 
     const weatherWidgetWidth = weatherWidget.offsetWidth;
     const weatherWidgetHeight = weatherWidget.offsetHeight;
@@ -44,26 +53,13 @@ const updateWeatherFontSize = () => {
     const feelTempFontSize = Math.min(weatherWidgetWidth * 0.04, weatherWidgetHeight * 0.08);
     const weatherDescFontSize = Math.min(weatherWidgetWidth * 0.04, weatherWidgetHeight * 0.08);
 
-    // New selectors for forecast elements
-    const forecastDays = document.querySelectorAll(".forecast .forcast-day");
-    const forecastTemps = document.querySelectorAll(".forecast .forcast-temp");
-    const forecastIcons = document.querySelectorAll(".forecast .forcast-icon");
-    const forecastWeathers = document.querySelectorAll(".forecast .forcast-weather");
-
-    // New font sizes for forecast elements
     const forecastDayFontSize = Math.min(weatherWidgetWidth * 0.03, weatherWidgetHeight * 0.06);
     const forecastTempFontSize = Math.min(weatherWidgetWidth * 0.04, weatherWidgetHeight * 0.08);
     const forecastIconSize = Math.min(weatherWidgetWidth * 0.06, weatherWidgetHeight * 0.12);
     const forecastWeatherFontSize = Math.min(weatherWidgetWidth * 0.02, weatherWidgetHeight * 0.04);
-
-    // Add new selectors for sun-moon elements
-    const sunMoonList = document.querySelector(".sun-moon-list");
-    const sunMoonItems = document.querySelectorAll(".sun-moon-list .sun-moon-item");
-    const sunMoonIcons = document.querySelectorAll(".sun-moon-list .sun-moon-item i");
-
-    // Add new font sizes for sun-moon elements
-    const sunMoonListMinHeight = Math.min(weatherWidgetWidth * 0.1, weatherWidgetHeight * 0.1);
+    
     const sunMoonItemFontSize = Math.min(weatherWidgetWidth * 0.02, weatherWidgetHeight * 0.04);
+    const sunMoonListMinHeight = Math.min(weatherWidgetWidth * 0.12, weatherWidgetHeight * 0.2);
     const sunMoonIconSize = Math.min(weatherWidgetWidth * 0.04, weatherWidgetHeight * 0.08);
 
     weatherHeader.style.fontSize = `${weatherHeaderFontSize}px`;
@@ -72,7 +68,6 @@ const updateWeatherFontSize = () => {
     feelTemp.style.fontSize = `${feelTempFontSize}px`;
     weatherDesc.style.fontSize = `${weatherDescFontSize}px`;
 
-    // Set font sizes for forecast elements
     forecastDays.forEach(day => {
         day.style.fontSize = `${forecastDayFontSize}px`;
     });
@@ -86,13 +81,18 @@ const updateWeatherFontSize = () => {
         weather.style.fontSize = `${forecastWeatherFontSize}px`;
     });
 
-    // Set font sizes for sun-moon elements
     sunMoonList.style.minHeight = `${sunMoonListMinHeight}px`;
     sunMoonItems.forEach(item => {
         item.style.fontSize = `${sunMoonItemFontSize}px`;
     });
     sunMoonIcons.forEach(icon => {
         icon.style.fontSize = `${sunMoonIconSize}px`;
+    });
+
+    const hourlyTemps = document.querySelectorAll(".sun-moon-item .hourly-temp");
+    const hourlyTempFontSize = Math.min(weatherWidgetWidth * 0.02, weatherWidgetHeight * 0.04);
+    hourlyTemps.forEach(temp => {
+        temp.style.fontSize = `${hourlyTempFontSize}px`;
     });
 };
 

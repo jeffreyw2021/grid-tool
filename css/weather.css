@@ -94,6 +94,36 @@ font-family: 'Rubik', sans-serif;
     margin: 0 !important;
 }
 
+/* ========== SUN/MOON ========== */
+
+.sun-moon-list {
+    align-self: center;
+    width: 102.5%;
+    display: flex;
+    justify-content: space-between;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    font-weight: 400;
+    margin-top: 30px;
+    list-style: none;
+    scroll-behavior: smooth; 
+}
+.sun-moon-list::-webkit-scrollbar {
+    display: none;
+}
+
+.sun-moon-item {
+    height: 100%;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.sun-moon-item i {
+    font-size: 20px;
+    display: block;
+    margin-bottom: 5px;
+}
+
 /* ========== FORECAST ========== */
 
 #weather-forecast {
@@ -102,6 +132,7 @@ font-family: 'Rubik', sans-serif;
     display: flex;
     justify-content: space-between;
     font-weight: 400;
+    padding-top: 10px;
     padding-bottom: 40px;
 }
 #weather-forecast > *{
@@ -139,36 +170,4 @@ font-family: 'Rubik', sans-serif;
     font-size: 14px;
     margin: 0;
 }
-
-/* ========== SUN/MOON ========== */
-
-.sun-moon-list {
-    align-self: center;
-    width: 102.5%;
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-y:hidden;
-    overflow-x: auto;
-    list-style-type: none;
-    margin-top: 40px;
-    -ms-overflow-style: none; /* For Internet Explorer and Edge */
-    scrollbar-width: none; /* For Firefox */
-    scroll-behavior: smooth;
-}
-.sun-moon-list::-webkit-scrollbar {
-    display: none;
-}
-
-.sun-moon-item {
-    flex-shrink: 0;
-    padding: 5px 10px;
-    text-align: center;
-}
-
-.sun-moon-item i {
-    font-size: 20px;
-    display: block;
-    margin-bottom: 5px;
-}
-
 

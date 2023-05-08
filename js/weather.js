@@ -110,8 +110,8 @@ function getFontAwesomeIcon(icon) {
     switch (icon) {
         case '01d': // clear sky (day)
             return 'fas fa-sun';
-        case '01n': // clear sky (night)
-            return 'fas fa-moon';
+        // case '01n': // clear sky (night)
+        //     return 'fas fa-moon';
         case '02d': // few clouds (day)
         case '02n': // few clouds (night)
             return 'fas fa-cloud-sun';
@@ -153,7 +153,6 @@ function scrollSunMoonList() {
 
         // Calculate the padding of a sun-moon-item element
         const padding = parseFloat(window.getComputedStyle(currentItem).paddingLeft) * 2;
-
         sunMoonList.scrollLeft = itemOffset - (parentWidth / 2) + (itemWidth / 2) - padding / 2;
     }
 }
@@ -187,9 +186,9 @@ function adjustWeatherStyles() {
     const forecastTempFontSize = Math.min(weatherWidgetWidth * 0.04, weatherWidgetHeight * 0.08);
     const forecastIconSize = Math.min(weatherWidgetWidth * 0.06, weatherWidgetHeight * 0.12);
     const forecastWeatherFontSize = Math.min(weatherWidgetWidth * 0.02, weatherWidgetHeight * 0.04);
-
-    const sunMoonListMinHeight = Math.min(weatherWidgetWidth * 0.1, weatherWidgetHeight * 0.1);
+    
     const sunMoonItemFontSize = Math.min(weatherWidgetWidth * 0.02, weatherWidgetHeight * 0.04);
+    const sunMoonListMinHeight = Math.min(weatherWidgetWidth * 0.12, weatherWidgetHeight * 0.2);
     const sunMoonIconSize = Math.min(weatherWidgetWidth * 0.04, weatherWidgetHeight * 0.08);
 
     weatherHeader.style.fontSize = `${weatherHeaderFontSize}px`;
@@ -224,6 +223,8 @@ function adjustWeatherStyles() {
     hourlyTemps.forEach(temp => {
         temp.style.fontSize = `${hourlyTempFontSize}px`;
     });
+
+    scrollSunMoonList();
 }
 
 async function updateWeatherWidget() {

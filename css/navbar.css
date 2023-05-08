@@ -1,0 +1,98 @@
+/* ========== NAVBAR ========== */
+
+.navbar-container{
+    z-index:100;
+    position: absolute;
+    top: 0;
+    right:0;
+    margin-top: 15px;
+    margin-right: 15px;
+    height: calc(100% - 21px);
+    font-size: 20px;
+    transition: width 0.2s ease-in-out;
+}
+#navbar{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 100px;
+}
+#navBtnContainer{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+#navBtn{
+    height: 50px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-color:#3a3a3a;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+#navBtn:hover{
+    background-color:#5b5b5b;
+}
+#navBtn.expanded{
+    background-color: #5b5b5b;
+}
+#navBtn.expanded:hover {
+    background-color: #7f7f7f;
+}
+
+#navbar-icons{
+    overflow:hidden;
+    height:0;
+    margin-top:8px;
+    font-size:35px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    transition: height 0.5s ease-in-out;
+}
+
+#navbar-icons i{
+    color: #5b5b5b;
+}
+#navbar-icons i:hover{
+    color:#7f7f7f;
+}
+.account-input-container{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 8px;
+}
+#account-input, 
+#password-input{
+    width: 0;
+    display: none;
+    margin-left: 8px;
+    height: 35px;
+    border-radius: 50px;
+    font-size: 16px; /* Increased font size to match the other elements */
+    padding: 0 15px; /* Add padding to the input */
+    background-color: #3a3a3a; /* Set the background color to match the other elements */
+    color: white; /* Set the text color to white */
+    border: none; /* Remove the default border */
+    outline: none; /* Remove the default outline */
+    transition: width 0.5s ease-in-out;
+}
+#password-input{
+    margin-right: 6px;
+}
+/* Add a hover effect to the account-input */
+#account-input:hover, #password-input:hover {
+    background-color: #5b5b5b;
+}
+/* Add a focus effect to the account-input */
+#account-input:focus, #password-input:focus {
+    background-color: #7f7f7f;
+}
+#login-btn{
+    display: none;
+}
